@@ -33,7 +33,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     def validate_email(self,value):
         user_query_set = users.objects.filter(email = value)
-        if user_query_set.exists:
+
+        if user_query_set.first():
             raise serializers.ValidationError("entered email address is taken")
         return value
     
