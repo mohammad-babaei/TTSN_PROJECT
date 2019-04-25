@@ -30,3 +30,15 @@ curl -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo
 
 
 """
+
+
+"""
+
+how to send registeration request to get verification email
+
+
+
+curl -H "Content-Type: application/json" -X POST -d '{"username":"someusername","email":"mr.linux3@yahoo.com","password1":"bahar1393","password2":"bahar1393"}' http://localhost:8000/auth/registration/
+
+
+"""
