@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK ,HTTP_400_BAD_REQUEST
 from rest_framework.permissions import AllowAny,IsAuthenticated
+from rest_framework.decorators import api_view
 
 
 
@@ -25,3 +26,13 @@ class UserLoginAPIView(APIView):
             data_2 = serializer.data
             return Response(data_2,HTTP_200_OK)
         return Response(serializer.errors,HTTP_400_BAD_REQUEST)
+
+
+
+@api_view()
+def null_view(request):
+    return Response(status=HTTP_400_BAD_REQUEST)
+
+@api_view()
+def complete_view(request):
+    return Response("Email account is activated")

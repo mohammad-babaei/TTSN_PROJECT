@@ -54,6 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
         return validated_data
 
 
+
 class UserLoginSerializer(serializers.ModelSerializer):
 
     username = serializers.CharField(max_length = 20,required = False,allow_blank = True)
