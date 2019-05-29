@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'django.contrib.sites',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -83,12 +84,8 @@ WSGI_APPLICATION = 'ttsn.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ttsn',
-        'USER': 'root',
-        'PASSWORD': 'bahar1393',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join('', 'TTSN.db'),
     
     }
 }

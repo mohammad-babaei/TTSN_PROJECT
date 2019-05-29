@@ -38,7 +38,7 @@ how to send registeration request to get verification email
 
 
 
-curl -H "Content-Type: application/json" -X POST -d '{"username":"someusername","email":"mr.linux3@yahoo.com","password1":"bahar1393","password2":"bahar1393"}' http://localhost:8000/auth/registration/
+curl -H "Content-Type: application/json" -X POST -d '{"username":"someusername","email":"mr.linux3@yahoo.com","password1":"qweasdqweasd","password2":"qweasdqweasd"}' http://127.0.0.1:8000/api/registration/
 
 
 """
