@@ -23,7 +23,7 @@ urlpatterns = [
 
 
 """
-curl -X POST -d "username=admin&password=bahar1393" http://localhost:8000/accounts/login/token-auth/
+curl -X POST -d "username=admin&password=bahar1393" http://localhost:8000/api/accounts/login/token-auth/
 
 
 curl -H "Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0LCJleHAiOjE1NTYxMzI0NDAsInVzZXJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6Im1hbWFseTExNTVAZ21haS5jb20ifQ.sSoNM6LuG39Ylv8xm2Bu9OUrIpguZIfqi6v0Oy_5uO4" http://localhost:8000/accounts/register/
@@ -38,7 +38,7 @@ how to send registeration request to get verification email
 
 
 
-curl -H "Content-Type: application/json" -X POST -d '{"username":"someusername","email":"mr.linux3@yahoo.com","password1":"qweasdqweasd","password2":"qweasdqweasd"}' http://127.0.0.1:8000/api/registration/
+curl -H "Content-Type: application/json" -X POST -d '{"username":"someusername","email":"mr.linux3@yahoo.com","password1":"qweasdqweasd","password2":"qweasdqweasd"}' http://127.0.0.1:8000/api/accounts/registration/
 
 
 """
