@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^api/accounts/',include("accounts.urls")),
     url(r'^api/Task/',include("Task.urls")),
     url(r'^swagger/',include("swagger.urls")),
+    url(r'^api/Backlog/',include("Backlog.urls")),
 ]
