@@ -13,7 +13,7 @@ class BacklogList(APIView):
     def get(self,request,format = None):
         Backlogs = Backlog.objects.all()
         serializer = BacklogSerializer(Backlogs,many = True)
-        return(serializer.data)
+        return Response(serializer.data)
     def post(self, request, format=None):
         serializer = BacklogSerializer(data=request.data)
         if serializer.is_valid():
