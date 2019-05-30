@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'ttsn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join('', 'TTSN.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'TTSN.sqlite3'),
     
     }
 }
