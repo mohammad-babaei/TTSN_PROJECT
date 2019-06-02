@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework_swagger',
     'Task',
+    'Backlog',
+    'Sprint's
 ]
 
 MIDDLEWARE = [
@@ -133,6 +135,8 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
+
+
 STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
@@ -177,4 +181,4 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = reverse_lazy('account_co
 
 REST_USE_JWT = True
 
-ALLOWED_HOSTS = ['mamaly100.pythonanywhere.com']
+ALLOWED_HOSTS = ['mamaly100.pythonanywhere.com','127.0.0.1']

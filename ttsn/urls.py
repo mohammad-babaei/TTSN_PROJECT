@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
-from Backlog import views
+# from Backlog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^api/Task/',include("Task.urls")),
     url(r'^swagger/',include("swagger.urls")),
     url(r'^api/Backlog/',include("Backlog.urls")),
+    url(r'^api/sprint/',include("Sprint.urls")),
 ]
