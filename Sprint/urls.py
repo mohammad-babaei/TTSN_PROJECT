@@ -1,9 +1,15 @@
-from django.conf.urls import url,include
-from rest_framework.routers import SimpleRouter
+#from django.conf.urls import url,include
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
 from .views import SprintModelViewSet
 
-Router = SimpleRouter()
+Router = DefaultRouter()
 
 Router.register("Sprint",SprintModelViewSet)
 
-urlpatterns = SimpleRouter.urls
+urlpatterns = [
+
+    path('', include(Router.urls)),
+
+
+]

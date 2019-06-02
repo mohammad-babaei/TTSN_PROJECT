@@ -48,8 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework_swagger',
     'Task',
-    'Backlog',
-    'Sprint's
+    #'Backlog',
+    'Sprint',
 ]
 
 MIDDLEWARE = [
