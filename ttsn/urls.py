@@ -16,13 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
+from rest_framework_swagger.views import get_swagger_view
+schema_view = get_swagger_view(title='TTSN API')
 # from Backlog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/accounts/',include("accounts.urls")),
-    url(r'^api/Task/',include("Task.urls")),
-    url(r'^swagger/',include("swagger.urls")),
-    url(r'^api/Backlog/',include("Backlog.urls")),
-    url(r'^api/sprint/',include("Sprint.urls")),
+    url(r'^accounts/',include("accounts.urls")),
+    url(r'^Task/',include("Task.urls")),
+    url(r'^$',schema_view),
+    url(r'^Backlog/',include("Backlog.urls")),
+    url(r'^sprint/',include("Sprint.urls")),
 ]
