@@ -1,7 +1,14 @@
-from django.conf.urls import url
-from Backlog import views
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from .views import BacklogModelViewSet
+
+Router = DefaultRouter()
+
+Router.register("",BacklogModelViewSet)
 
 urlpatterns = [
-    url(r'^',views.BacklogList.as_view()),
-]
 
+    path('', include(Router.urls)),
+
+
+]

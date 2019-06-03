@@ -5,7 +5,7 @@ from .views import SprintModelViewSet
 
 Router = DefaultRouter()
 
-Router.register("Sprint",SprintModelViewSet)
+Router.register("",SprintModelViewSet)
 
 urlpatterns = [
 
