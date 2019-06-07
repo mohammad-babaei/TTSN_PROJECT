@@ -9,9 +9,10 @@ class TaskSerializer(serializers.ModelSerializer):
         model = Task
         fields = (
         'id',
+        'title',
         'description',
         'TaskState',
-        'UserID',
+        'picker',
         'BackLogID',
         # 'SprintID'
         )
