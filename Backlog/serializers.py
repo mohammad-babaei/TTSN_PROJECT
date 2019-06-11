@@ -5,6 +5,11 @@ class BacklogSerializer(serializers.ModelSerializer):
         model = Backlog
         # fields = ('name','priority','defenition_done','description')
         fields = '__all__'
+class BacklogTaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Backlog
+        # fields = ('name','priority','defenition_done','description')
+        fields = ('id')
     # def create(self,validated_data):
     #     # idd = validated_data['id']
     #     name = validated_data['name']
