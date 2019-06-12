@@ -5,6 +5,9 @@ class Backlog(models.Model):
     definition_done = models.TextField(max_length=150)
     description = models.TextField(max_length=150)
     create_date = models.DateField(auto_now=True)
-    priority = models.AutoField(unique=True)
+    priority = models.IntegerField(unique=True,blank=True, null=True)
     def __str__(self):
         return self.name
+    # def save(self,*args,**kwargs):
+    #     super(Backlog,self).save(*args,**kwargs)
+    #     self.priority = self.id

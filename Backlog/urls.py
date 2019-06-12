@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import BacklogModelViewSet,BacklogTaskList
+from .views import BacklogModelViewSet
 from django.conf.urls import url
 Router = DefaultRouter()
 
