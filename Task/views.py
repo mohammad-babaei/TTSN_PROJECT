@@ -13,6 +13,7 @@ class TaskListByState(generics.ListAPIView):
     """
     get task list by their state
     """
+    permission_classes = [AllowAny,]
     serializer_class = TaskSerializer
     def get_queryset(self):
         queryset = Task.objects.all()

@@ -1,13 +1,19 @@
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField,HyperlinkedRelatedField
 from rest_framework import serializers
-
+# from accounts.serializers import UsersViewSerializer
 from .models import Task
 
 
 class TaskSerializer(serializers.ModelSerializer):
 
+    picker = HyperlinkedRelatedField(
+        read_only=True,
+        view_name='users-detail'
+    )
     class Meta:
         model = Task
         fields = (
+        # 'picker2',
         'id',
         'title',
         'description',
@@ -16,17 +22,3 @@ class TaskSerializer(serializers.ModelSerializer):
         'BackLogID',
         # 'SprintID'
         )
-    # def create(self,validated_data):
-
-    #     description = validated_data['description']
-    #     TaskState = validated_data['TaskState']
-    #     UserID = validated_data['UserID']
-
-    #     Task_object = Task (
-    #         description = description,
-    #         TaskState = TaskState,
-    #         UserID = UserID
-    #     )
-
-        # Task_object.save()
-        # return validated_data
