@@ -15,6 +15,6 @@ class Task(models.Model):
         ("DONE","done")
     )
     TaskState = models.CharField(max_length=12, choices=TaskChoices)
-    picker = models.ForeignKey('accounts.users',on_delete=models.CASCADE,blank=True)
+    picker = models.ForeignKey('accounts.users',on_delete=models.CASCADE,null=True)
     BackLogID = models.ForeignKey('Backlog.Backlog',on_delete=models.CASCADE)
     # SprintID = models.ForeignKey('sprint',on_delete=models.CASCADE)
