@@ -4,6 +4,24 @@ from django.db.models import Q
 
 from .models import users
 
+
+
+
+
+
+class UsersViewSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = users
+        fields=(
+            'username',
+            'email',
+            'url'
+        )
+
+
+
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     password2 = serializers.CharField(max_length = 100)

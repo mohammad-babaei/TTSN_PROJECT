@@ -9,7 +9,12 @@ from django.db import models
 class Task(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(null=True)
-    TaskState = models.IntegerField()
-    picker = models.ForeignKey('accounts.users',on_delete=models.CASCADE)
+    TaskChoices = (
+        ("IN_PROGRESS","in progress"),
+        ("TO_DO","to do"),
+        ("DONE","done")
+    )
+    TaskState = models.CharField(max_length=12, choices=TaskChoices)
+    picker = models.ForeignKey('accounts.users',on_delete=models.CASCADE,null=True)
     BackLogID = models.ForeignKey('Backlog.Backlog',on_delete=models.CASCADE)
     # SprintID = models.ForeignKey('sprint',on_delete=models.CASCADE)

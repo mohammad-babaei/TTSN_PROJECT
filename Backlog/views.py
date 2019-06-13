@@ -21,22 +21,9 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
         obj = self.get_object()
         ptcps = Task.objects.filter(
             BackLogID=obj.id)
-        serializer = TaskSerializer(ptcps, many=True)
+        serializer_context = {"request": request,}
+        serializer = TaskSerializer(ptcps, many=True,context=serializer_context)
         return Response(serializer.data)
 
-# class BacklogTaskList(generics.ListAPIView):
-    
-#     permission_classes = [AllowAny,]
-#     queryset = Backlog.objects.all()
 
-#     serializer_class = BacklogSerializer
-    # def get_queryset(self, *args,**kwargs):
-    #     queryset_list = Task.objects.all()
-    #     query = self.request.GET.get("q")
-    #     if query:
-    #         queryset_list = queryset_list.filter(
-    #                     Q(title = query)
-    #         ).distinct()
-    #     return queryset_list
 
- 
