@@ -22,13 +22,4 @@ class BacklogSerializer(serializers.ModelSerializer):
         validated_data['id'] = backlog.id
         validated_data['create_date'] = backlog.create_date
         return validated_data
-
-        # pr = request.user.priority
-        # Backlog_list = Backlog.objects.all()
-        # max_id = len(Backlog_list)
-        # for i in range(pr+1,max_id+1):
-        #     Backlog.objects.filter(priority=i).update(priority=i-1)
-        # return super(BacklogSerializer, self).destroy(request, *args, **kwargs)            
-
-
             
