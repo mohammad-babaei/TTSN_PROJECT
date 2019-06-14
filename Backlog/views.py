@@ -24,6 +24,8 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
         serializer_context = {"request": request,}
         serializer = TaskSerializer(ptcps, many=True,context=serializer_context)
         return Response(serializer.data)
-
+    @detail_route(url_path='(?P<slug>[\w-]+)/(?P<what>[\w-]+)')
+    def get_by_name(self, request, pk=None,slug=None, what=None):
+        print(slug, what)
 
 
