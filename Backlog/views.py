@@ -4,7 +4,7 @@ from Backlog.models import Backlog
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from Task.models import Task
 from Task.serializers import TaskSerializer
-from django.db.models import Q
+from django.db.models import Q,Sum,Count
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
 
@@ -15,6 +15,11 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
     serializer_class = BacklogSerializer
 
     queryset = Backlog.objects.all()
+
+    def list(self, request):
+        queryset = Backlog.objects.all().order_by('priority')
+        serializer = BacklogSerializer(queryset, many=True)
+        return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -34,8 +39,25 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
         serializer_context = {"request": request,}
         serializer = TaskSerializer(ptcps, many=True,context=serializer_context)
         return Response(serializer.data)
-    @detail_route(url_path='(?P<slug>[\w-]+)/(?P<what>[\w-]+)')
-    def get_by_name(self, request, pk=None,slug=None, what=None):
-        print(slug, what)
-
+    # @detail_route(methods=['get'],url_path='set_priority/(?P<priority>[0-9]+)')
+    # def set_priority(self, request, pk=None priority=None):
+    #     print("fuck Backlog man: ",pk,"fuck priority man: ",priority)
+    #     return Response("fuck") 
+    @detail_route(url_name='priority', url_path='set_priority/(?P<priority>[0-9]+)')
+    def set_priority(self, request, pk=None, priority=None):
+        # print("fuck Backlog man: ",pk,"fuck priority man: ",priority)
+        Backlog_list = list(Backlog.objects.order_by('priority'))
+        # for i in range(len(Backlog_list)):
+        #     print(Backlog_list[i].id)
+        instance = Backlog.objects.filter(id = pk)[0]
+        former_priority = instance.priority
+        a = Backlog_list.pop(former_priority-1)
+        Backlog_list.insert(int(priority)-1,instance)
+        # former_priority = instance.priority
+        max_id = len(Backlog_list)
+        for i in range(max_id):
+            idd = Backlog_list[i].id
+            Backlog.objects.filter(id=idd).update(priority=i+1)
+        # Backlog.objects.filter(priority=).update(priority=priority)
+        return Response("fuck") 
 
