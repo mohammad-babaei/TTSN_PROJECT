@@ -14,9 +14,15 @@ class BacklogSerializer(serializers.ModelSerializer):
             print(max_id)
             backlog = Backlog(name = validated_data["name"],definition_done = validated_data["definition_done"],description = validated_data["description"],priority = max_id+1)
             backlog.save()
+            validated_data["id"]= backlog.id
+            validated_data["create_date"] = backlog.create_date
+            validated_data["priority"]= backlog.priority
         else:
             backlog = Backlog(name = validated_data["name"],definition_done = validated_data["definition_done"],description = validated_data["description"],priority = 0)
             backlog.save()
+            validated_data["id"]= backlog.id
+            validated_data["create_date"] = backlog.create_date
+            validated_data["priority"]= backlog.priority
         return validated_data
 # class BacklogTaskSerializer(serializers.ModelSerializer):
 #     class Meta:
