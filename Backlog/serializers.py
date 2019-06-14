@@ -10,7 +10,7 @@ class BacklogSerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         Backlog_list = Backlog.objects.all()
         max_id = len(Backlog_list)
-        if(validated_data["priority"]==None or validated_data["priority"]<=0):
+        if("priority" not in validated_data.keys() or validated_data["priority"]==None or validated_data["priority"]<=0):
             validated_data["priority"]=max_id+1
         elif (validated_data["priority"]>max_id):
             validated_data["priority"]=max_id+1 
