@@ -5,15 +5,8 @@ class BacklogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Backlog
         fields = '__all__'
-    # def destroy(self, request, *args, **kwargs):
-    #     try:
-    #         instance = self.get_object()
-    #         self.perform_destroy(instance)
-    #     except Http404:
-    #         pass
-    #     return Response(status=status.HTTP_204_NO_CONTENT)
-    def perform_destroy(self, instance):
-        instance.delete()
+
+
     def create(self,validated_data):
         Backlog_list = Backlog.objects.all()
         max_id = len(Backlog_list)

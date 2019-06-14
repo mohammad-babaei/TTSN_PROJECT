@@ -16,6 +16,16 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
 
     queryset = Backlog.objects.all()
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        pr = instance.priority
+        Backlog_list = Backlog.objects.all()
+        max_id = len(Backlog_list)
+        for i in range(pr+1,max_id+1):
+            Backlog.objects.filter(priority=i).update(priority=i-1)
+        self.perform_destroy(instance)        
+        return Response(status=status.HTTP_204_NO_CONTENT) 
+
     @detail_route(methods=['get'])
     def Tasks(self, request, pk=None):
         obj = self.get_object()
