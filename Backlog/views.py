@@ -1,4 +1,4 @@
-from rest_framework import viewsets,generics
+from rest_framework import viewsets,generics,status
 from Backlog.serializers import BacklogSerializer
 from Backlog.models import Backlog
 from rest_framework.permissions import AllowAny,IsAuthenticated
@@ -7,6 +7,7 @@ from Task.serializers import TaskSerializer
 from django.db.models import Q,Sum,Count
 from rest_framework.decorators import detail_route
 from rest_framework.response import Response
+
 
 class BacklogModelViewSet(viewsets.ModelViewSet):
     
@@ -59,5 +60,4 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
             idd = Backlog_list[i].id
             Backlog.objects.filter(id=idd).update(priority=i+1)
         # Backlog.objects.filter(priority=).update(priority=priority)
-        return Response("fuck") 
-
+        return Response(status=status.HTTP_200_OK)
