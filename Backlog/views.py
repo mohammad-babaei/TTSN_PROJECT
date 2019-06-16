@@ -1,13 +1,14 @@
 from rest_framework import viewsets,generics,status
-from Backlog.serializers import BacklogSerializer
+from Backlog.serializers import BacklogSerializer,PrioritylistSerializer
 from Backlog.models import Backlog
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from Task.models import Task
 from Task.serializers import TaskSerializer
 from django.db.models import Q,Sum,Count
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route,list_route,action
 from rest_framework.response import Response
-
+def plus(temp):
+    return temp+1
 
 class BacklogModelViewSet(viewsets.ModelViewSet):
     
@@ -16,6 +17,11 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
     serializer_class = BacklogSerializer
 
     queryset = Backlog.objects.all()
+    # def get_serializer_class(self):
+    #     if self.request.method == 'POST':
+    #         return PrioritylistSerializer 
+
+    #     return self.serializer_class
 
     def list(self, request):
         queryset = Backlog.objects.all().order_by('priority')
@@ -61,3 +67,18 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
             Backlog.objects.filter(id=idd).update(priority=i+1)
         # Backlog.objects.filter(priority=).update(priority=priority)
         return Response(status=status.HTTP_200_OK)
+    @action(methods=['post'],detail=False,serializer_class=PrioritylistSerializer)
+    def set_list_priority(self,request):
+        req_data = request.data["priorities"]
+        new_priorities=list(map(plus,req_data))
+        id_newpriority = []
+        for i in range(len(new_priorities)):
+            instances= Backlog.objects.filter(priority=i+1)
+            if(instances):
+                idd = instances[0].id
+                id_newpriority.append((idd,new_priorities[i]))
+        print(id_newpriority)
+        for id_prio in id_newpriority:
+            Backlog.objects.filter(id=id_prio[0]).update(priority=id_prio[1])
+        return Response(status=status.HTTP_200_OK)
+
