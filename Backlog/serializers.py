@@ -6,7 +6,6 @@ class BacklogSerializer(serializers.ModelSerializer):
         model = Backlog
         fields = '__all__'
 
-
     def create(self,validated_data):
         Backlog_list = Backlog.objects.all()
         max_id = len(Backlog_list)
@@ -22,4 +21,7 @@ class BacklogSerializer(serializers.ModelSerializer):
         validated_data['id'] = backlog.id
         validated_data['create_date'] = backlog.create_date
         return validated_data
+
+class PrioritylistSerializer(serializers.Serializer):
+    priorities = serializers.ListField(child=serializers.IntegerField())
             
