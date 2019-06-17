@@ -15,7 +15,8 @@ class UsersViewSerializer(serializers.HyperlinkedModelSerializer):
         fields=(
             'username',
             'email',
-            'url'
+            'url',
+            'profile_picture',
         )
 
 
