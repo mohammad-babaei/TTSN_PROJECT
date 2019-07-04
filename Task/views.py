@@ -21,3 +21,9 @@ class TaskListByState(generics.ListAPIView):
         if TaskState is not None:
             queryset = queryset.filter(TaskState=TaskState)
         return queryset
+
+class TaskListByState2(generics.ListAPIView):
+    permission_classes = [AllowAny,]
+    serializer_class = TaskSerializer
+    queryset = Task.objects.all()
+    
