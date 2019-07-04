@@ -27,4 +27,6 @@ urlpatterns = [
     url(r'^$',schema_view),
     url(r'^Backlog/',include("Backlog.urls")),
     url(r'^sprint/',include("Sprint.urls")),
+    url(r'^Projects/',include("project.urls")),
+    url(r'^', include('rest_invitations.urls')),
 ]
