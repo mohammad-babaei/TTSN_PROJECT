@@ -70,28 +70,3 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
         )
 
         return invitation_object
-
-
-class UpdateInvitationSerializer(serializers.ModelSerializer):
-
-    class Meta:
-
-        model = ProjectUserInvitationModel
-        fields = (
-            'key',
-            'accepted',
-        )
-        lookup_field = 'key'
-    def validate(self,data):
-        found_invitation = None
-        key = data.get('key')
-        if not key:
-            raise serializers.ValidationError("A key is required.")
-        invitation = ProjectUserInvitationModel.objects.filter(Q(key = key))
-        if invitation.exists():
-            found_invitation = invitation.first()
-            found_invitation.accepted = True
-            found_invitation.save()
-        else:
-            raise serializers.ValidationError('not valid link')
-        return data

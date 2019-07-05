@@ -1,6 +1,6 @@
 from rest_framework import viewsets, generics
 from .models import Scrum, ProjectUserInvitationModel
-from .serializers import ScrumSerializer, UserProjectInvitationSerializer,UpdateInvitationSerializer
+from .serializers import ScrumSerializer, UserProjectInvitationSerializer
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
@@ -19,7 +19,7 @@ class CreateInvitationView(generics.CreateAPIView):
 
 class UpdateInvitationView(generics.ListAPIView):
     permission_classes = [AllowAny,]
-    serializer_class = UpdateInvitationSerializer
+    serializer_class = UserProjectInvitationSerializer
     lookup_field = 'key'
 
     def get_queryset(self):
