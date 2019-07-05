@@ -80,6 +80,5 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
         print(id_newpriority)
         for id_prio in id_newpriority:
             Backlog.objects.filter(id=id_prio[0]).update(priority=id_prio[1])
-        objects = Backlog.objects.order_by("priority")
         return Response("HTTP_200_OK" ,status=status.HTTP_200_OK)
 
