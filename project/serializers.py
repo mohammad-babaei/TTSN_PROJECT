@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Scrum, ProjectUserInvitationModel
 from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
+from django.db.models import Q
 
 class ScrumSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,7 +41,15 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
         # inviter = validated_data['inviter']
         key = get_random_string(64).lower()
 
-        inviter = self.context['request'].user
+        request = self.context['request']
+
+
+        inviter = request.user
+        inviter_username = inviter.username
+
+        absolute_uri = request.build_absolute_uri()
+
+        invitation_link = absolute_uri+'accept-invite/'+key+'/'
 
         invitation_object = ProjectUserInvitationModel (
         email = email,
@@ -49,14 +58,40 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
         inviter = inviter,
         key = key,
         )
+
         invitation_object.save()
 
         send_mail(
-            'invitation by ',#+inviter.username,
-            'you are invited to a project by ',#+inviter.username,
+            'invitation by '+inviter_username,
+            'you are invited to a project by '+inviter_username+"\n wanna join? click the link "+invitation_link,
             'ttsnproject@gmail.com',
-            ['mamaly1155@gmail.com'],
+            [email.email,],
             fail_silently=False,
         )
 
         return invitation_object
+
+
+class UpdateInvitationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = ProjectUserInvitationModel
+        fields = (
+            'key',
+            'accepted',
+        )
+        lookup_field = 'key'
+    def validate(self,data):
+        found_invitation = None
+        key = data.get('key')
+        if not key:
+            raise serializers.ValidationError("A key is required.")
+        invitation = ProjectUserInvitationModel.objects.filter(Q(key = key))
+        if invitation.exists():
+            found_invitation = invitation.first()
+            found_invitation.accepted = True
+            found_invitation.save()
+        else:
+            raise serializers.ValidationError('not valid link')
+        return data

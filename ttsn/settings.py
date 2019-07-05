@@ -180,11 +180,12 @@ REST_FRAMEWORK = {
 
 
 # Email backend settings for Django
+EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'ttsnproject@gmail.com'
 EMAIL_HOST_PASSWORD = 'cssbvdyzydqtvifm'
 EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
 
 
 
