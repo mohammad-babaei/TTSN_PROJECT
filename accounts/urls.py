@@ -1,7 +1,7 @@
 from django.conf.urls import url,include
 
 from django import urls
-from .views import UserCreateAPIView,UserLoginAPIView
+from .views import UserCreateAPIView,UserLoginAPIView,ViewCurrentUserInfo
 from . import views
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
@@ -23,7 +23,7 @@ urlpatterns = [
     # url(r'userview/', views.UserView.as_view(({'get': 'list'})),name='user-details'),
 
     urls.path('',urls.include(router.urls)),
-    
+    url(r'^current_user/$', ViewCurrentUserInfo.as_view(), name='view_current_user_info'),
     url(r'^registration/account-email-verification-sent/', views.null_view, name='account_email_verification_sent'),
     url(r'^registration/account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
     url(r'^registration/complete/$', views.complete_view, name='account_confirm_complete'),
