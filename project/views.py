@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
+from django.db.models import Q
 
 class ScrumModelViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
@@ -16,6 +17,15 @@ class CreateInvitationView(generics.CreateAPIView):
     serializer_class = UserProjectInvitationSerializer
     queryset = ProjectUserInvitationModel.objects.all()
 
+class ViewCollaborators(generics.ListAPIView):
+    permission_classes = [AllowAny,]
+    serializer_class = UserProjectInvitationSerializer
+    def get_queryset(self):
+        
+        project_id = self.kwargs['project_id']
+        queryset = ProjectUserInvitationModel.objects.filter((Q(Project=project_id)&Q(accepted=True)))[0]
+        return queryset
+                
 
 class UpdateInvitationView(generics.ListAPIView):
     permission_classes = [AllowAny,]

@@ -19,6 +19,11 @@ class ScrumSerializer(serializers.ModelSerializer):
 
         )
 
+
+class CollaboratorSerializer(serializers.ModelSerializer):
+    class Meta:
+        pass
+
 class UserProjectInvitationSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -37,8 +42,6 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
     def create(self,validated_data):
         email = validated_data['email']
         Project = validated_data['Project']
-        # created = validated_data['created']
-        # inviter = validated_data['inviter']
         key = get_random_string(64).lower()
 
         request = self.context['request']
@@ -54,7 +57,6 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
         invitation_object = ProjectUserInvitationModel (
         email = email,
         Project = Project,
-        # created = created,
         inviter = inviter,
         key = key,
         )
