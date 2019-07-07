@@ -1,16 +1,16 @@
 from rest_framework.routers import DefaultRouter
-from .views import ScrumModelViewSet,CreateInvitationView,UpdateInvitationView,ViewCollaborators
+from .views import ProjectModelViewSet,CreateInvitationView,UpdateInvitationView,ViewCollaborators
 from django.urls import include, path
 from django.conf.urls import url
 
 Router = DefaultRouter()
 
 
-Router.register("",ScrumModelViewSet)
+Router.register("",ProjectModelViewSet)
 
 urlpatterns = [
 
-    path('Scrum/', include(Router.urls)),
+    path('', include(Router.urls)),
     
     url(r'collaborators/(?P<project_id>.+)/$', ViewCollaborators.as_view()),
     url(r'invitations/$', CreateInvitationView.as_view()),
