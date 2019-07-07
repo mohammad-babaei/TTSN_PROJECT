@@ -10,10 +10,11 @@ from rest_framework.exceptions import ValidationError
 from django.db.models import Q
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticated,]
     serializer_class = GeneralProjectSerializer
     queryset = Project.objects.all()
     def perform_create(self, serializer):
+        print(self.request.user)
         serializer.save(Creator=self.request.user)
 
 class CreateInvitationView(generics.CreateAPIView):

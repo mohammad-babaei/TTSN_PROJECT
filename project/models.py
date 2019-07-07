@@ -64,4 +64,4 @@ class Project(models.Model):
     )
     Methodology = models.CharField(max_length=20, choices=MethodologyChoices)
     Creator = models.ForeignKey(
-        'accounts.users', on_delete=models.CASCADE, related_name='creater_assigned')
+        'accounts.users', on_delete=models.CASCADE, related_name='creater_assigned', null = True , blank=True)
