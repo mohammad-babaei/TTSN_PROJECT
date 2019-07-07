@@ -1,16 +1,18 @@
 from rest_framework import viewsets, generics
-from .models import Scrum, ProjectUserInvitationModel
-from .serializers import ScrumSerializer, UserProjectInvitationSerializer
+from .models import ProjectUserInvitationModel,Project
+from accounts.models import users
+from accounts.serializers import UsersViewSerializer
+from .serializers import GeneralProjectSerializer, UserProjectInvitationSerializer
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from django.db.models import Q
 
-class ScrumModelViewSet(viewsets.ModelViewSet):
+class ProjectModelViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
-    serializer_class = ScrumSerializer
-    queryset = Scrum.objects.all()
+    serializer_class = GeneralProjectSerializer
+    queryset = Project.objects.all()
 
 class CreateInvitationView(generics.CreateAPIView):
     permission_classes = [AllowAny,]
@@ -19,12 +21,13 @@ class CreateInvitationView(generics.CreateAPIView):
 
 class ViewCollaborators(generics.ListAPIView):
     permission_classes = [AllowAny,]
-    serializer_class = UserProjectInvitationSerializer
+    serializer_class = UsersViewSerializer
     def get_queryset(self):
         
         project_id = self.kwargs['project_id']
-        queryset = ProjectUserInvitationModel.objects.filter((Q(Project=project_id)&Q(accepted=True)))[0]
-        return queryset
+        queryset = ProjectUserInvitationModel.objects.filter((Q(Project=project_id)&Q(accepted=True))).values('email')
+        user_queryset = users.objects.filter(email__in=queryset)
+        return user_queryset
                 
 
 class UpdateInvitationView(generics.ListAPIView):
