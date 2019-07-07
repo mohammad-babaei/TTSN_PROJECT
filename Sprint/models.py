@@ -5,4 +5,4 @@ class sprint(models.Model):
     DeadLine = models.DateField()
     StartTime = models.DateField()
     InProgress = models.BooleanField()
-    ProjectID = models.ForeignKey('project.Scrum',on_delete=models.CASCADE,related_name='%(class)s_requests_created',null=True)
+    ProjectID = models.ForeignKey('project.Project',on_delete=models.CASCADE,related_name='%(class)s_requests_created',null=True)
