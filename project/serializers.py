@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.db.models import Q
 
 class GeneralProjectSerializer(serializers.ModelSerializer):
-    Creator = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)  
+    # Creator = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)  
     class Meta:
         model = Project 
         fields = '__all__'

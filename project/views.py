@@ -13,6 +13,8 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
     serializer_class = GeneralProjectSerializer
     queryset = Project.objects.all()
+    def perform_create(self, serializer):
+        serializer.save(Creator=self.request.user)
 
 class CreateInvitationView(generics.CreateAPIView):
     permission_classes = [AllowAny,]
