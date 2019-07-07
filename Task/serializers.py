@@ -36,6 +36,6 @@ class TaskSerializer(serializers.ModelSerializer):
         'description',
         'TaskState',
         'picker',
+        'pair_picker',
         'BackLogID',
-        # 'SprintID'
         )
