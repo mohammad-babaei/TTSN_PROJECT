@@ -1,23 +1,18 @@
 from rest_framework import serializers
-from .models import Scrum, ProjectUserInvitationModel
+from .models import ProjectUserInvitationModel,Project
 from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.db.models import Q
 
-class ScrumSerializer(serializers.ModelSerializer):
+class GeneralProjectSerializer(serializers.ModelSerializer):
+    creator = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)  
     class Meta:
-        model = Scrum
-        fields = (
-            'id',
-            'Name',
-            'StartDate',
-            'EndTime',
-            'Creator',
-            'TeamMembers',
-            'ScrumMaster',
-            'ProjectManager'
+        model = Project 
+        fields = '__all__'
 
-        )
+class ProjectParticipantsSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
 
 
 class CollaboratorSerializer(serializers.ModelSerializer):
