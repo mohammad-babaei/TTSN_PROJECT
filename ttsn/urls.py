@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url,include
 from rest_framework_swagger.views import get_swagger_view
+from Task.views import TaskListByState2
 schema_view = get_swagger_view(title='TTSN API')
 # from Backlog import views
 
@@ -27,4 +28,6 @@ urlpatterns = [
     url(r'^$',schema_view),
     url(r'^Backlog/',include("Backlog.urls")),
     url(r'^sprint/',include("Sprint.urls")),
+    url(r'^Projects/',include("project.urls")),
+    
 ]

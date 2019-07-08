@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'Task',
     #'Backlog',
     'Sprint',
+    'project',
+    'invitations',
+    'rest_invitations',
     
 ]
 
@@ -164,12 +167,12 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
@@ -177,11 +180,12 @@ REST_FRAMEWORK = {
 
 
 # Email backend settings for Django
+EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'ttsnproject@gmail.com'
-EMAIL_HOST_PASSWORD = '23571113'
+EMAIL_HOST_PASSWORD = 'cssbvdyzydqtvifm'
 EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+
 
 
 

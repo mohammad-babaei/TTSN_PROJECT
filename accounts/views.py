@@ -2,7 +2,7 @@ from .serializers import UserSerializer,UserLoginSerializer,UsersViewSerializer
 from .models import users
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
-from rest_framework import viewsets
+from rest_framework import viewsets,generics
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK ,HTTP_400_BAD_REQUEST
 from rest_framework.permissions import AllowAny,IsAuthenticated
@@ -16,6 +16,18 @@ class UserView(viewsets.ReadOnlyModelViewSet):
     permission_classes=[AllowAny,]
     serializer_class = UsersViewSerializer
     queryset = users.objects.all()
+
+
+
+
+class ViewCurrentUserInfo(generics.ListAPIView):
+    permission_classes = [IsAuthenticated,]
+    serializer_class = UsersViewSerializer
+    def get_queryset(self):
+        current_user = self.request.user
+        return [current_user,]
+
+
 
 
 class UserCreateAPIView(CreateAPIView):
