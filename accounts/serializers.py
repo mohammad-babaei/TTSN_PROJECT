@@ -111,3 +111,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
         token = "bullshit token"
 
         return data
+
+
+class ProjectListSerializer(serializers.Serializer):
+    email = serializers.EmailField()
