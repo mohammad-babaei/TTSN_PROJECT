@@ -10,7 +10,7 @@ from rest_framework.exceptions import ValidationError
 from django.db.models import Q
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
     serializer_class = GeneralProjectSerializer
     queryset = Project.objects.all()
     def perform_create(self, serializer):
