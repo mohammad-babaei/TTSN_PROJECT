@@ -11,6 +11,9 @@ from django.db.models import Q
 from Backlog.models import Backlog
 from Backlog.serializers import BacklogSerializer
 from rest_framework.decorators import detail_route,list_route,action
+from Task.models import Task
+from Task.serializers import TaskSerializer
+ 
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
@@ -29,14 +32,15 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
         serializer = BacklogSerializer(ptcps, many=True,context=serializer_context)
         return Response(serializer.data)
 
-    # @detail_route(methods=['get'])
-    # def Tasks(self, request, pk=None):
-    #     obj = self.get_object()
-    #     ptcps = Backlog.objects.filter(
-    #         ProjectID=obj.id)
-    #     serializer_context = {"request": request,}
-    #     serializer = BacklogSerializer(ptcps, many=True,context=serializer_context)
-    #     return Response(serializer.data)
+    @detail_route(methods=['get'],url_name='Tasks', url_path='get_Tasks')
+    def Tasks(self, request, pk=None):
+        obj = self.get_object()
+        ptcps = Backlog.objects.filter(
+            ProjectID=obj.id).values('id')
+        btcps = Task.objects.filter(BackLogID__in=ptcps)
+        serializer_context = {"request": request,}
+        serializer = TaskSerializer(btcps, many=True,context=serializer_context)
+        return Response(serializer.data)
 
 class CreateInvitationView(generics.CreateAPIView):
     permission_classes = [AllowAny,]
