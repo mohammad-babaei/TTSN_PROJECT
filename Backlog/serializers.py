@@ -16,7 +16,8 @@ class BacklogSerializer(serializers.ModelSerializer):
         elif (validated_data["priority"]<max_id):
             for i in range(max_id,validated_data["priority"]-1,-1):
                 Backlog.objects.filter(priority=i).update(priority=i+1)
-        backlog = Backlog(name = validated_data["name"],definition_done = validated_data["definition_done"],description = validated_data["description"],priority = validated_data["priority"])
+        backlog = Backlog(name = validated_data["name"],definition_done = validated_data["definition_done"]
+                                ,description = validated_data["description"],priority = validated_data["priority"],ProjectID = validated_data["ProjectID"])
         backlog.save()
         validated_data['id'] = backlog.id
         validated_data['create_date'] = backlog.create_date
