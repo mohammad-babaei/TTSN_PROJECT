@@ -27,7 +27,7 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
     def Backlogs(self, request, pk=None):
         obj = self.get_object()
         ptcps = Backlog.objects.filter(
-            ProjectID=obj.id)
+            ProjectID=obj.id).order_by('priority')
         serializer_context = {"request": request,}
         serializer = BacklogSerializer(ptcps, many=True,context=serializer_context)
         return Response(serializer.data)

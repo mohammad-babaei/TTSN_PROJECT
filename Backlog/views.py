@@ -24,17 +24,17 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
     #     return self.serializer_class
 
     def list(self, request):
-        queryset = Backlog.objects.all().order_by('priority')
+        queryset = Backlog.objects.all().order_by('ProjectID','priority')
         serializer = BacklogSerializer(queryset, many=True)
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         pr = instance.priority
-        Backlog_list = Backlog.objects.all()
+        Backlog_list = Backlog.objects.filter(ProjectID = instance.ProjectID)
         max_id = len(Backlog_list)
         for i in range(pr+1,max_id+1):
-            Backlog.objects.filter(priority=i).update(priority=i-1)
+            Backlog.objects.filter(priority=i,ProjectID = instance.ProjectID).update(priority=i-1)
         self.perform_destroy(instance)        
         return Response(status=status.HTTP_204_NO_CONTENT) 
 
@@ -73,7 +73,7 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
         new_priorities=list(map(plus,req_data))
         id_newpriority = []
         for i in range(len(new_priorities)):
-            instances= Backlog.objects.filter(priority=i+1)
+            instances= Backlog.objects.filter(priority=i+1,ProjectID=request.data["ProjectID"])
             if(instances):
                 idd = instances[0].id
                 id_newpriority.append((idd,new_priorities.index(instances[0].priority)+1))

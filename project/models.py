@@ -16,7 +16,7 @@ class ProjectUserInvitationModel(models.Model):
     email = models.OneToOneField('accounts.users',to_field='email', unique=True, on_delete=models.CASCADE,related_name='email_of_user')
     accepted = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now)
-    Project = models.ForeignKey("Project", on_delete=models.CASCADE)
+    Project = models.ForeignKey("project.Project", on_delete=models.CASCADE)
     key = models.CharField(max_length=64,unique = True)
     sent = models.DateTimeField(null=True)
     inviter = models.ForeignKey(
