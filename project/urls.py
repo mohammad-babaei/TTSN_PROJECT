@@ -6,7 +6,7 @@ from django.conf.urls import url
 Router = DefaultRouter()
 
 
-Router.register("projects/",ProjectModelViewSet)
+Router.register("projects",ProjectModelViewSet)
 
 urlpatterns = [
 
