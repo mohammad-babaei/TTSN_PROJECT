@@ -13,11 +13,11 @@ from django.conf import settings
 
 
 class ProjectUserInvitationModel(models.Model):
-    email = models.OneToOneField('accounts.users',to_field='email', unique=True, on_delete=models.CASCADE,related_name='email_of_user')
+    UserID = models.ForeignKey('accounts.users', on_delete=models.CASCADE,related_name='id_of_user')
     accepted = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now)
     Project = models.ForeignKey("project.Project", on_delete=models.CASCADE)
-    key = models.CharField(max_length=64,unique = True)
+    key = models.CharField(max_length=64,unique = True,null=True)
     sent = models.DateTimeField(null=True)
     inviter = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True,to_field='username', on_delete=models.CASCADE,related_name='inviter_of_user')
