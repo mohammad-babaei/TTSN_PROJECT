@@ -10,6 +10,7 @@ class GeneralProjectSerializer(serializers.ModelSerializer):
         model = Project 
         fields = '__all__'
 
+
 class ProjectParticipantsSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'

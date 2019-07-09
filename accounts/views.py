@@ -1,6 +1,6 @@
-from .serializers import UserSerializer,UserLoginSerializer,UsersViewSerializer
+from .serializers import UserSerializer,UserLoginSerializer,UsersViewSerializer,UpdateProfileSerilaizer
 from .models import users
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView,RetrieveUpdateAPIView
 from rest_framework.views import APIView
 from rest_framework import viewsets,generics
 from rest_framework.response import Response
@@ -30,7 +30,6 @@ class UserView(viewsets.ReadOnlyModelViewSet):
     #     return Response(serializer.data)
 
 
-
 class ViewCurrentUserInfo(generics.ListAPIView):
     permission_classes = [IsAuthenticated,]
     serializer_class = UsersViewSerializer
@@ -49,7 +48,16 @@ class ViewCurrentUserProjects(generics.ListAPIView):
         serializer = GeneralProjectSerializer(prbps, many=True)
         return prbps
 
-
+class UpdateProfileView(RetrieveUpdateAPIView):
+    permission_classes = [AllowAny,]
+    serializer_class = UpdateProfileSerilaizer
+    queryset = users.objects.all()
+    # def get_queryset(self):
+    #     current_user = self.request.user
+    #     queryset = users.objects.filter(id = current_user.id)
+    #     if queryset.exists():
+    #         user = queryset.first()
+    #         user.
 
 class UserCreateAPIView(CreateAPIView):
 

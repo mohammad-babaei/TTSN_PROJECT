@@ -8,11 +8,12 @@ from .models import users
 
 
 
-
+    
 class UsersViewSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = users
         fields=(
+            'id',
             'username',
             'email',
             'url',
@@ -73,6 +74,16 @@ class UserSerializer(serializers.ModelSerializer):
         return validated_data
 
 
+class UpdateProfileSerilaizer(serializers.ModelSerializer):
+    class Meta:
+        model = users
+        fields = (
+            'id',
+            'username',
+            'password',
+            'bio',
+            'profile_picture'
+        )
 
 class UserLoginSerializer(serializers.ModelSerializer):
 

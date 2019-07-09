@@ -48,7 +48,7 @@ class CreateInvitationView(generics.CreateAPIView):
     queryset = ProjectUserInvitationModel.objects.all()
 
 class ViewCollaborators(generics.ListAPIView):
-    permission_classes = [AllowAny,]
+    permission_classes = [IsAuthenticated,]
     serializer_class = UsersViewSerializer
     def get_queryset(self):
         
