@@ -18,10 +18,10 @@ from django.urls import path
 from django.conf.urls import url,include
 from rest_framework_swagger.views import get_swagger_view
 from Task.views import TaskListByState2
-
+from django.conf.urls.static import static
 from django.contrib.auth import views
-
-
+from .settings import MEDIA_ROOT
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 schema_view = get_swagger_view(title='TTSN API')
 # from Backlog import views
@@ -36,3 +36,4 @@ urlpatterns = [
     url(r'^Projects/',include("project.urls")),
     
 ]
+urlpatterns+=static('profile_pics/',document_root=MEDIA_ROOT)
