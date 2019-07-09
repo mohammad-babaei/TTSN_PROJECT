@@ -112,6 +112,3 @@ class UserLoginSerializer(serializers.ModelSerializer):
 
         return data
 
-
-class ProjectListSerializer(serializers.Serializer):
-    email = serializers.EmailField()
