@@ -109,7 +109,7 @@ TEMPLATES = [
 
 JWT_AUTH = {
 
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=36000),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=30),
 }
 
 
@@ -128,6 +128,20 @@ DATABASES = {
     
     }
 }
+
+
+
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+}
+
 
 
 # Password validation
@@ -176,13 +190,15 @@ STATIC_URL = '/static/'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        
+        
     ),
 }
 
