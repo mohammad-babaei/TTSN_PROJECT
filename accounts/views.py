@@ -1,4 +1,4 @@
-from .serializers import UserSerializer,UserLoginSerializer,UsersViewSerializer,ProjectListSerializer
+from .serializers import UserSerializer,UserLoginSerializer,UsersViewSerializer
 from .models import users
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
