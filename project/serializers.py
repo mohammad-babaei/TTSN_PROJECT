@@ -12,6 +12,13 @@ from rest_framework import exceptions
 
 
 
+
+# class ProjectCollaboratorRelatedField(serializers.RelatedField):
+#     def to_representation(self,value):
+#         data = (value.id,value.username,value.email,value.profile_picture)
+
+
+
 class GeneralProjectSerializer(serializers.ModelSerializer):
     # Creator = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)  
     class Meta:
