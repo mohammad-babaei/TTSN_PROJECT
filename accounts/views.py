@@ -43,7 +43,7 @@ class ViewCurrentUserProjects(generics.ListAPIView):
     def get_queryset(self):
         current_user = self.request.user
         ptcps = ProjectUserInvitationModel.objects.filter(
-        email=current_user.email).values('Project')
+        UserID=current_user.id).values('Project')
         prbps = Project.objects.filter(id__in = ptcps)
         serializer = GeneralProjectSerializer(prbps, many=True)
         return prbps
