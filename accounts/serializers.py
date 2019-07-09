@@ -111,3 +111,4 @@ class UserLoginSerializer(serializers.ModelSerializer):
         token = "bullshit token"
 
         return data
+
