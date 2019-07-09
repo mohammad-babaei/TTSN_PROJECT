@@ -16,7 +16,7 @@ from Task.serializers import TaskSerializer
  
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
     serializer_class = GeneralProjectSerializer
     queryset = Project.objects.all()
     def perform_create(self, serializer):
@@ -43,7 +43,7 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 class CreateInvitationView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
     serializer_class = UserProjectInvitationSerializer
     queryset = ProjectUserInvitationModel.objects.all()
 
@@ -59,7 +59,7 @@ class ViewCollaborators(generics.ListAPIView):
                 
 
 class UpdateInvitationView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
     serializer_class = UserProjectInvitationSerializer
     lookup_field = 'key'
 
