@@ -7,10 +7,9 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK ,HTTP_400_BAD_REQUEST
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from rest_framework.decorators import api_view
-from project.models import ProjectUserInvitationModel
+from project.models import ProjectUserInvitationModel,Project
 from rest_framework.decorators import detail_route,list_route,action
-
-
+from project.serializers import GeneralProjectSerializer
 
 class UserView(viewsets.ReadOnlyModelViewSet):
     permission_classes=[AllowAny,]
@@ -40,15 +39,15 @@ class ViewCurrentUserInfo(generics.ListAPIView):
         return [current_user,]
 
 class ViewCurrentUserProjects(generics.ListAPIView):
-    permission_classes = [AllowAny,]
-    serializer_class = ProjectListSerializer
+    permission_classes = [IsAuthenticated,]
+    serializer_class = GeneralProjectSerializer
     def get_queryset(self):
         current_user = self.request.user
         ptcps = ProjectUserInvitationModel.objects.filter(
         email=current_user.email).values('Project')
-        serializer_context = {"request": request,}
-        serializer = GeneralProjectSerializer(ptcps, many=True,context=serializer_context)
-        return Response(serializer.data)
+        prbps = Project.objects.filter(id__in = ptcps)
+        serializer = GeneralProjectSerializer(prbps, many=True)
+        return prbps
 
 
 
