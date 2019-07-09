@@ -18,8 +18,9 @@ class TaskListByState(generics.ListAPIView):
     def get_queryset(self):
         queryset = Task.objects.all()
         TaskState = self.kwargs['taskstate']
+        ProjID = self.kwargs['ProjectID']
         if TaskState is not None:
-            queryset = queryset.filter(TaskState=TaskState)
+            queryset = queryset.filter(TaskState=TaskState,ProjectID = ProjID)
         return queryset
 
 class TaskListByState2(generics.ListAPIView):

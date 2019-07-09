@@ -10,11 +10,6 @@ class TaskPickerRelatedField(serializers.RelatedField):
 
     def to_representation(self,value):
         data = (value.username,value.email,value.profile_picture.url)
-        # data = {
-        #     "username":value.username,
-        #     "email":value.email,
-        #     "username":value.profile_picture,
-        #     }
         return data
 
 
@@ -37,5 +32,5 @@ class TaskSerializer(serializers.ModelSerializer):
         'TaskState',
         'picker',
         'BackLogID',
-        # 'SprintID'
+        'ProjectID'
         )

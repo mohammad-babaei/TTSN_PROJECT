@@ -10,7 +10,7 @@ Router.register("",TaskModelViewSet)
 urlpatterns = [
 
     path('', include(Router.urls)),
-    url(r'^TaskByState/(?P<taskstate>.+)/$',TaskListByState.as_view(),name='tasks by state'),
+    url(r'^TaskByState/(?P<taskstate>.+)/(?P<ProjectID>[0-9]+)/$',TaskListByState.as_view(),name='tasks by state'),
 
 
 ]
