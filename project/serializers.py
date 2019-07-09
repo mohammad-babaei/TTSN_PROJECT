@@ -3,7 +3,8 @@ from .models import ProjectUserInvitationModel,Project
 from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.db.models import Q
-
+from accounts.models import users
+from rest_framework import exceptions
 
 # class ProjectCollaboratorRelatedField(serializers.RelatedField):
 #     def to_representation(self,value):
@@ -28,7 +29,7 @@ class CollaboratorSerializer(serializers.ModelSerializer):
         pass
 
 class UserProjectInvitationSerializer(serializers.ModelSerializer):
-
+    email = serializers.EmailField(write_only=True)
     class Meta:
         model= ProjectUserInvitationModel
         fields = (
@@ -39,11 +40,17 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
             'key',
             'sent',
             'inviter',
+            'email'
         )
-        read_only_fields = ('key','sent','inviter','accepted','created',)
+        read_only_fields = ('key','sent','inviter','accepted','created','UserID',)
 
     def create(self,validated_data):
-        Uid = validated_data['UserID']
+        email = validated_data['email']
+        Uid = users.objects.filter(email=email)
+        if (Uid):
+            Uid = Uid[0]
+        else:
+            raise exceptions.NotFound
         Project = validated_data['Project']
         key = get_random_string(64).lower()
 
