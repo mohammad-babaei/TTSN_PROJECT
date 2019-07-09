@@ -1,7 +1,7 @@
 from django.conf.urls import url,include
 
 from django import urls
-from .views import UserCreateAPIView,UserLoginAPIView,ViewCurrentUserInfo,UpdateProfileView
+from .views import UserCreateAPIView,UserLoginAPIView,ViewCurrentUserInfo,UpdateProfileView,ViewCurrentUserProjects
 from . import views
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
@@ -25,6 +25,7 @@ urlpatterns = [
     urls.path('',urls.include(router.urls)),
     url(r'^update_profile/(?P<pk>\d+)/$', UpdateProfileView.as_view(), name='update_user_info'),
     url(r'^current_user/$', ViewCurrentUserInfo.as_view(), name='view_current_user_info'),
+    url(r'^Projects/$', ViewCurrentUserProjects.as_view(), name='view_current_user_projects'),
     url(r'^registration/account-email-verification-sent/', views.null_view, name='account_email_verification_sent'),
     url(r'^registration/account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
     url(r'^registration/complete/$', views.complete_view, name='account_confirm_complete'),
