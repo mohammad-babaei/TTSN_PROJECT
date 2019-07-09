@@ -10,6 +10,7 @@ from .models import users
 
     
 class UsersViewSerializer(serializers.HyperlinkedModelSerializer):
+    profile_picture = serializers.SerializerMethodField()
     class Meta:
         model = users
         fields=(
@@ -19,6 +20,13 @@ class UsersViewSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'profile_picture',
         )
+    def get_profile_picture(self,profile):
+        request = self.context.get('request')
+        profile_picture = profile.profile_picture.url
+        # a = request.build_absolute_uri(profile_picture)
+        b = request.build_absolute_uri()
+        b = '/'.join(b.split('/')[:3])
+        return b+'/'+profile_picture
 
 
 
