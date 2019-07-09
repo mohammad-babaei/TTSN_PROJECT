@@ -4,6 +4,13 @@ from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.db.models import Q
 
+
+# class ProjectCollaboratorRelatedField(serializers.RelatedField):
+#     def to_representation(self,value):
+#         data = (value.id,value.username,value.email,value.profile_picture)
+
+
+
 class GeneralProjectSerializer(serializers.ModelSerializer):
     # Creator = serializers.StringRelatedField(default=serializers.CurrentUserDefault(), read_only=True)  
     class Meta:
@@ -25,7 +32,7 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
     class Meta:
         model= ProjectUserInvitationModel
         fields = (
-            'email',
+            'UserID',
             'accepted',
             'created',
             'Project',
@@ -36,7 +43,7 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
         read_only_fields = ('key','sent','inviter','accepted','created',)
 
     def create(self,validated_data):
-        email = validated_data['email']
+        Uid = validated_data['UserID']
         Project = validated_data['Project']
         key = get_random_string(64).lower()
 
@@ -51,7 +58,7 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
         invitation_link = absolute_uri+'accept-invite/'+key+'/'
 
         invitation_object = ProjectUserInvitationModel (
-        email = email,
+        UserID = Uid,
         Project = Project,
         inviter = inviter,
         key = key,
@@ -63,7 +70,7 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
             'invitation by '+inviter_username,
             'you are invited to a project by '+inviter_username+"\n wanna join? click the link "+invitation_link,
             'ttsnproject@gmail.com',
-            [email.email,],
+            [Uid.email,],
             fail_silently=False,
         )
 

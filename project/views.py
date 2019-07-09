@@ -21,7 +21,12 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     def perform_create(self, serializer):
         print(self.request.user)
+        ProjectCreator=self.request.user
+
         serializer.save(Creator=self.request.user)
+
+        creator = ProjectUserInvitationModel(UserID = ProjectCreator,accepted = True,Project=serializer.instance)
+        creator.save()
     
     @detail_route(methods=['get'])
     def Backlogs(self, request, pk=None):
@@ -41,6 +46,17 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
         serializer_context = {"request": request,}
         serializer = TaskSerializer(btcps, many=True,context=serializer_context)
         return Response(serializer.data)
+    
+    @detail_route(methods =['delete'],url_name='remove_collab', url_path='remove_collaborator/(?P<UserID>[0-9]+)')
+    def remove_collaborator(self, request, pk=None, UserID=None):
+        # print("fuck Backlog man: ",pk,"fuck priority man: ",priority)
+        querySet = ProjectUserInvitationModel.objects.filter(Project = pk,UserID = UserID)
+        if(querySet):
+            querySet = querySet[0]
+        # for i in querySet:
+        #     print(i)
+        self.perform_destroy(querySet)
+        return Response(status=status.HTTP_200_OK)
 
 class CreateInvitationView(generics.CreateAPIView):
     permission_classes = [AllowAny,]
@@ -53,8 +69,21 @@ class ViewCollaborators(generics.ListAPIView):
     def get_queryset(self):
         
         project_id = self.kwargs['project_id']
-        queryset = ProjectUserInvitationModel.objects.filter((Q(Project=project_id)&Q(accepted=True))).values('email')
-        user_queryset = users.objects.filter(email__in=queryset)
+        queryset = ProjectUserInvitationModel.objects.filter((Q(Project=project_id)&Q(accepted=True))).values('UserID')
+        # creator_queryset = Project.objects.filter(id = project_id).values('Creator')
+        # a = list(queryset.values())+list(creator_queryset.values())
+        # print(a)
+        # if(creator_queryset):
+        #     creator_queryset = list(creator_queryset[0].values())
+        # else:
+        #     creator_queryset = []
+        # if(queryset):
+        #     queryset=list(queryset[0].values())
+        # else:
+        #     queryset = []
+        # print(queryset , creator_queryset)
+        user_queryset = users.objects.filter(id__in=queryset)
+
         return user_queryset
                 
 
