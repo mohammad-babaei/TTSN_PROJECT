@@ -36,7 +36,7 @@ class BacklogModelViewSet(viewsets.ModelViewSet):
         for i in range(pr+1,max_id+1):
             Backlog.objects.filter(priority=i,ProjectID = instance.ProjectID).update(priority=i-1)
         self.perform_destroy(instance)        
-        return Response(status=status.HTTP_204_NO_CONTENT) 
+        return Response(self.serializer.instance,status=status.HTTP_204_NO_CONTENT) 
 
     @detail_route(methods=['get'])
     def Tasks(self, request, pk=None):
