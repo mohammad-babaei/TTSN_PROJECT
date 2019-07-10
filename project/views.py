@@ -13,7 +13,7 @@ from Backlog.serializers import BacklogSerializer
 from rest_framework.decorators import detail_route,list_route,action
 from Task.models import Task
 from Task.serializers import TaskSerializer
- 
+from django.shortcuts import render
 
 class ProjectModelViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny,]
@@ -70,18 +70,6 @@ class ViewCollaborators(generics.ListAPIView):
         
         project_id = self.kwargs['project_id']
         queryset = ProjectUserInvitationModel.objects.filter((Q(Project=project_id)&Q(accepted=True))).values('UserID')
-        # creator_queryset = Project.objects.filter(id = project_id).values('Creator')
-        # a = list(queryset.values())+list(creator_queryset.values())
-        # print(a)
-        # if(creator_queryset):
-        #     creator_queryset = list(creator_queryset[0].values())
-        # else:
-        #     creator_queryset = []
-        # if(queryset):
-        #     queryset=list(queryset[0].values())
-        # else:
-        #     queryset = []
-        # print(queryset , creator_queryset)
         user_queryset = users.objects.filter(id__in=queryset)
 
         return user_queryset
@@ -105,3 +93,10 @@ class UpdateInvitationView(generics.ListAPIView):
             else:
                 raise ValidationError({"error": ["Not Valid Link."]})
         return queryset
+
+def accept_invitation(request,key):
+    # template = loader.get_template('accept_invitation.html')
+    context = {
+            "key":key,
+    }
+    return render(request,'beefree-3x9qpnfh08s.html',context)

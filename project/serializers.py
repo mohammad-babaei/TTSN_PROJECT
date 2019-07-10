@@ -69,7 +69,7 @@ class UserProjectInvitationSerializer(serializers.ModelSerializer):
 
         absolute_uri = request.build_absolute_uri()
 
-        invitation_link = absolute_uri+'accept-invite/'+key+'/'
+        invitation_link = absolute_uri+'accept-front/'+key+'/'
 
         invitation_object = ProjectUserInvitationModel (
         UserID = Uid,
