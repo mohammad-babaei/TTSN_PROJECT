@@ -56,7 +56,7 @@ class ProjectModelViewSet(viewsets.ModelViewSet):
         # for i in querySet:
         #     print(i)
         self.perform_destroy(querySet)
-        return Response(status=status.HTTP_200_OK)
+        return Response(serializer.instance,status=status.HTTP_200_OK)
 
 class CreateInvitationView(generics.CreateAPIView):
     permission_classes = [AllowAny,]
